@@ -1,35 +1,113 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useQuery } from "react-query"
+import "./App.css"
+import { queryQuotes } from "./functions/quote-api"
+import { useState } from "react"
 
 function App() {
-  const [count, setCount] = useState(0)
+	const [currentCategory, setCurrentCategory] = useState()
+	const [isCategoryChecked, setCategoryChecked] = useState()
 
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+	const quoteCategories = [
+		"age",
+		"alone",
+		"amazing",
+		"anger",
+		"architecture",
+		"art",
+		"attitude",
+		"beauty",
+		"best",
+		"birthday",
+		"business",
+		"change",
+		"communications",
+		"computers",
+		"cool",
+		"courage",
+		"dad",
+		"dating",
+		"death",
+		"design",
+		"dreams",
+		"education",
+		"environmental",
+		"equality",
+		"experience",
+		"failure",
+		"faith",
+		"family",
+		"famous",
+		"fear",
+		"fitness",
+		"food",
+		"forgiveness",
+		"freedom",
+		"friendship",
+		"funny",
+		"future",
+		"god",
+		"good",
+		"government",
+		"graduation",
+		"great",
+		"happiness",
+		"health",
+		"history",
+		"home",
+		"hope",
+		"humor",
+		"imagination",
+		"inspirational",
+		"intelligence",
+		"jealousy",
+		"knowledge",
+		"leadership",
+		"learning",
+		"legal",
+		"life",
+		"love",
+		"marriage",
+		"medical",
+		"men",
+		"mom",
+		"money",
+		"morning",
+		"movies",
+		"success",
+	]
+	const { isFetching, isLoading, refetch, data, isFetched, fetchStatus } =
+		useQuery("quote-generator", () =>
+		queryQuotes(currentCategory)
+		)
+
+	return isLoading ? (
+		<h1>Loading...</h1>
+	) : (
+		<>
+			<h1 className="title">Quotes Generator</h1>
+			<div className="card">
+				{!isFetching ? (
+					<>
+						<p className="quote">{data?.data[0].quote}</p>
+						<p className="quote-author">-{data?.data[0].author}</p>
+						<p className="quote-category">-{data?.data[0].category}</p>
+					</>
+				) : (
+					<p>Fetching...</p>
+				)}
+				<select onChange={(e) => setCurrentCategory(e.target.value)}>
+					<option value={"none"}>Aucune categorie</option>
+					{quoteCategories.map((quoteCategorie) => (
+						<option value={quoteCategorie} key={quoteCategorie}>
+							{quoteCategorie.toUpperCase()}
+						</option>
+					))}
+				</select>
+
+				<button onClick={() => refetch()}>Generate new quote</button>
+			</div>
+		</>
+	)
 }
 
 export default App
