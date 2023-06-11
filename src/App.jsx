@@ -98,7 +98,7 @@ function App() {
 					<p>Fetching...</p>
 				)}
 				<select onChange={(e) => setCurrentCategory(e.target.value)}>
-					<option value={"none"}>Aucune categorie</option>
+					<option value={"none"}>Random category</option>
 					{quoteCategories.map((quoteCategorie) => (
 						<option value={quoteCategorie} key={quoteCategorie}>
 							{quoteCategorie.toUpperCase()}
@@ -110,7 +110,7 @@ function App() {
 			</div>
 			<div>
 				<p>Made by <a href="http://chebila.space">Aziz</a></p>
-				<p>Using <a href="https://api-ninjas.com/api/quotes">Ninja Api</a></p>
+				<p>Using <a href="https://api-ninjas.com/api/quotes" target="_blank" rel="noreferrer">Ninja Api</a></p>
 			</div>
 		</>
 	)
