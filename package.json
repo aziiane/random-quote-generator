@@ -1,8 +1,9 @@
 {
-  "name": "vite-project",
+  "name": "random-quote-generator",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
+  "author": "Aziz Chebil",
   "scripts": {
     "dev": "vite --host",
     "build": "vite build",

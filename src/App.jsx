@@ -89,8 +89,10 @@ function App() {
 				{!isFetching ? (
 					<>
 						<p className="quote">{data?.data[0].quote}</p>
-						<p className="quote-author">-{data?.data[0].author}</p>
-						<p className="quote-category">-{data?.data[0].category}</p>
+						<div className="quote-bottom">
+							<p className="quote-author">-{data?.data[0].author}</p>
+							<p className="quote-category">{data?.data[0].category.toUpperCase()}</p>
+						</div>
 					</>
 				) : (
 					<p>Fetching...</p>
@@ -105,6 +107,10 @@ function App() {
 				</select>
 
 				<button onClick={() => refetch()}>Generate new quote</button>
+			</div>
+			<div>
+				<p>Made by <a href="http://chebila.space">Aziz</a></p>
+				<p>Using <a href="https://api-ninjas.com/api/quotes">Ninja Api</a></p>
 			</div>
 		</>
 	)
