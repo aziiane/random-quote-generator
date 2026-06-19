@@ -5,7 +5,6 @@ import { useState } from "react"
 
 function App() {
 	const [currentCategory, setCurrentCategory] = useState()
-	const [isCategoryChecked, setCategoryChecked] = useState()
 
 	const quoteCategories = [
 		"age",
@@ -75,9 +74,12 @@ function App() {
 		"movies",
 		"success",
 	]
-	const { isFetching, isLoading, refetch, data, isFetched, fetchStatus } =
+
+
+
+	const { isFetching, isLoading, refetch, data } =
 		useQuery("quote-generator", () =>
-		queryQuotes(currentCategory)
+			queryQuotes(currentCategory)
 		)
 
 	return isLoading ? (
@@ -91,7 +93,7 @@ function App() {
 						<p className="quote">{data?.data[0].quote}</p>
 						<div className="quote-bottom">
 							<p className="quote-author">-{data?.data[0].author}</p>
-							<p className="quote-category">{data?.data[0].category.toUpperCase()}</p>
+							<p className="quote-category">{data?.data[0].categories?.join(", ").toUpperCase()}</p>
 						</div>
 					</>
 				) : (
